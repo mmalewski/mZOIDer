@@ -1,0 +1,17 @@
+schema_version = "1.0.0"
+id = "inzoi_prop_exporter"
+version = "1.0.0"
+name = "Inzoider"
+tagline = "A tool to export placeable models to inZOI"
+maintainer = "MrVicho13 <vicho0202@gmail.com>"
+type = "add-on"
+tags = ["Render", "Import-Export"]
+blender_version_min = "4.2.0"
+
+
+license = ["SPDX:MIT",]
+
+platforms = ["windows-x64",]
+
+[permissions]
+files = "Export Folders and Binary Files (.BMP, .JPG, .JSON, .GLB) to disk"
