@@ -139,7 +139,7 @@ class ExportCraft_OT_Operator(bpy.types.Operator):
         if item:
             meta = Meta(
                 [0, 0, 0],
-                [0, 90, 0] if item.type == 'Character' else [0, 0, 0],
+                [0, 0, 0] if item.type == 'Character' else [0, -90, 0],
                 get_obj_extents(item.mesh),
                 item.title,
                 item.description,
