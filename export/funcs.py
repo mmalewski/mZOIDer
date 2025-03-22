@@ -52,3 +52,8 @@ def export_obj_as_glb(obj: Object, filepath: str, name: str) -> None:
     bpy.ops.export_scene.gltf(filepath=filepath + f"/{name}.glb", use_selection=True, export_animations=False, export_draco_mesh_compression_enable=False, export_format='GLB')
     
     obj.select_set(False)
+    
+    
+def update_path(self, context):
+    if self.ytd_export_path != '':
+        self.ytd_export_path = bpy.path.abspath(self.ytd_export_path)

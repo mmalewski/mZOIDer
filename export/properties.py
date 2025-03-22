@@ -1,4 +1,5 @@
 import bpy
+from .funcs import update_path
 
 class CraftItem(bpy.types.PropertyGroup):
     type: bpy.props.EnumProperty(name="Type", items=[
@@ -14,7 +15,7 @@ class CraftItem(bpy.types.PropertyGroup):
 def register():
     bpy.types.Scene.obj_craft_list = bpy.props.CollectionProperty(type=CraftItem)
     bpy.types.Scene.obj_craft_index = bpy.props.IntProperty(name="Index", default=0)
-    bpy.types.Scene.inzoi_3d_crafts_path = bpy.props.StringProperty(name="Inzoi 3D Crafts Path", default="", subtype='DIR_PATH')
+    bpy.types.Scene.inzoi_3d_crafts_path = bpy.props.StringProperty(name="Inzoi 3D Crafts Path", default="", subtype='DIR_PATH', update=update_path)
     bpy.types.WindowManager.current_craft_image_path = bpy.props.StringProperty()
     bpy.types.WindowManager.current_craft_texture_name = bpy.props.StringProperty()
     
