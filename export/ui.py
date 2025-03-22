@@ -1,5 +1,5 @@
 import bpy
-from .operators import FakeOperator_OT_Operator, add_craft_item_OT_Operator
+from .operators import FakeOperator_OT_Operator, AddCraftItem_OT_Operator, ExportCraft_OT_Operator, RemoveCraftItem_OT_Operator
 
 
 class CRAFT_UL_list(bpy.types.UIList):
@@ -14,7 +14,6 @@ class CRAFT_UL_list(bpy.types.UIList):
                 row.label(text="Build", icon='MESH_CUBE')
             case 'Character':
                 row.label(text="Character", icon='ARMATURE_DATA')
-        row.template_image(item, "thumbnail", "")
 
 
 class InzoiderCraftExport_PT_Panel(bpy.types.Panel):
@@ -33,18 +32,19 @@ class InzoiderCraftExport_PT_Panel(bpy.types.Panel):
         layout = self.layout
         row = layout.row()
         col = row.column()
-        col.operator(add_craft_item_OT_Operator.bl_idname, text="", icon='ADD')
-        col.operator(FakeOperator_OT_Operator.bl_idname, text="", icon='REMOVE')
+        col.operator(AddCraftItem_OT_Operator.bl_idname, text="", icon='ADD')
+        col.operator(RemoveCraftItem_OT_Operator.bl_idname, text="", icon='REMOVE')
         col.separator()
-        col.operator(FakeOperator_OT_Operator.bl_idname, text="", icon='EXPORT')
+        col.operator(ExportCraft_OT_Operator.bl_idname, text="", icon='EXPORT')
         col.separator()
         row = row.row()
         col = row.column(align=False)
         col.scale_x = 1.2
         col.template_list(CRAFT_UL_list.bl_idname, "", scene, "obj_craft_list", scene, "obj_craft_index")
+        col.prop(scene, "inzoi_3d_crafts_path", text="inZOI ImageTo3D Path", icon='FILE_FOLDER', expand=True)
         
         selected_item = scene.obj_craft_list[scene.obj_craft_index] if scene.obj_craft_list else None
-        col.separator()
+        
         if selected_item:
             header, panel = layout.panel("_item details")
             header.label(text="Details", icon='MOD_VERTEX_WEIGHT')
@@ -58,4 +58,3 @@ class InzoiderCraftExport_PT_Panel(bpy.types.Panel):
             col_panel.prop(selected_item, "thumbnail")
             col_panel.enabled = False
             col_panel.prop(selected_item, "mesh", text="Linked Object")
-    

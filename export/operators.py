@@ -1,6 +1,8 @@
 import bpy
+from .funcs import get_obj_extents, create_printed_file, generate_md5_from_str, current_time_str, convert_image_to_jpg, create_folder, export_obj_as_glb
+from .meta import Meta
 
-class select_image_OT_Operator(bpy.types.Operator):
+class SelectImage_OT_Operator(bpy.types.Operator):
     bl_idname = "inzoider.select_image_for_craft"
     bl_label = "Select Image"
     
@@ -43,7 +45,7 @@ class select_image_OT_Operator(bpy.types.Operator):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
-class add_craft_item_OT_Operator(bpy.types.Operator):
+class AddCraftItem_OT_Operator(bpy.types.Operator):
     bl_idname = "inzoider.add_craft_item"
     bl_label = "Add Craft Item"
     
@@ -100,7 +102,7 @@ class add_craft_item_OT_Operator(bpy.types.Operator):
         box = layout.box()
         box.label(text="Thumbnail Image:")
         
-        box.operator(select_image_OT_Operator.bl_idname, text="Select Image", icon='FILE_IMAGE')
+        box.operator(SelectImage_OT_Operator.bl_idname, text="Select Image", icon='FILE_IMAGE')
         
         if context.window_manager.current_craft_texture_name:
             tex_name = context.window_manager.current_craft_texture_name
@@ -108,10 +110,53 @@ class add_craft_item_OT_Operator(bpy.types.Operator):
                 box.template_preview(bpy.data.textures[tex_name], show_buttons=False)
             else:
                 box.label(text=f"Texture '{tex_name}' not found")
+                
+class RemoveCraftItem_OT_Operator(bpy.types.Operator):
+    bl_idname = "inzoider.remove_craft_item"
+    bl_label = "Remove Craft Item"
+    
+    def execute(self, context):
+        scene = context.scene
+        scene.obj_craft_list.remove(scene.obj_craft_index)
+        scene.obj_craft_index = min(max(0, scene.obj_craft_index - 1), len(scene.obj_craft_list) - 1)
+        return {'FINISHED'}
             
 class FakeOperator_OT_Operator(bpy.types.Operator):
     bl_idname = "fake.operator"
     bl_label = "Fake Operator"
 
     def execute(self, context):
+        return {'FINISHED'}
+    
+class ExportCraft_OT_Operator(bpy.types.Operator):
+    bl_idname = "inzoider.export_craft"
+    bl_label = "Export Craft"
+    
+    def execute(self, context):
+        scene = context.scene
+        item = scene.obj_craft_list[scene.obj_craft_index]
+        
+        if item:
+            meta = Meta(
+                [0, 0, 0],
+                [0, 90, 0] if item.type == 'Character' else [0, 0, 0],
+                get_obj_extents(item.mesh),
+                item.title,
+                item.description,
+            )
+            
+            hash_name = generate_md5_from_str(f"{item.title}{current_time_str()}")
+            new_folder = create_folder(scene.inzoi_3d_crafts_path + f"/{hash_name}")
+            
+            meta.export_to_file(f"{new_folder}/meta.json")
+            create_printed_file(item.author, new_folder)
+            
+            export_obj_as_glb(item.mesh, new_folder, hash_name.upper())
+            if item.thumbnail:
+                convert_image_to_jpg(new_folder, item.thumbnail)
+            
+            
+            
+            self.report({'INFO'}, f"Craft '{item.title}' exported successfully!")
+        
         return {'FINISHED'}
