@@ -7,7 +7,7 @@ def get_obj_extents(obj: Object) -> tuple:
     return list(obj.dimensions * 50)
 
 def create_printed_file(author: str, file_path: str) -> None:
-    with open(f"{file_path}/printed.bin", 'wb+') as file:
+    with open(f"{file_path}/printed.dat", 'wb+') as file:
         file.write(b'\x01\x00\x00\x00\x25\x00\x00\x00')
         file.write(f"{author}/acc-".encode('utf-8'))
         for i in range(0, 23):
