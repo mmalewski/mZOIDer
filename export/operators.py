@@ -30,12 +30,8 @@ class select_image_OT_Operator(bpy.types.Operator):
             tex.crop_max_x = 0.25
             tex.crop_max_y = 1.0
             
-            # Guardar el nombre de la textura - IMPORTANTE: usa current_craft_texture_name
             context.window_manager.current_craft_texture_name = texture_name
             
-            # Imprimir para depuración
-            print(f"Texture created: {texture_name}")
-            print(f"Texture exists: {texture_name in bpy.data.textures}")
             
         except Exception as e:
             self.report({'ERROR'}, f"Could not load image: {str(e)}")
@@ -85,7 +81,7 @@ class add_craft_item_OT_Operator(bpy.types.Operator):
         if context.window_manager.current_craft_texture_name:
             tex_name = context.window_manager.current_craft_texture_name
             if tex_name in bpy.data.textures:
-                item.thumbnail_texture = tex_name
+                item.thumbnail = bpy.data.textures[tex_name].image
         
         return {'FINISHED'}
     
