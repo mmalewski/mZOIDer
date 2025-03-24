@@ -7,7 +7,7 @@
 - Blender 4.2 or higher.
 
 ### Installation:
-- Click the green ```Code``` button then click ```Download ZIP```.
+- Click the green ```Code``` button then click ```Download ZIP``` Or get latest release if available from ```Tags``` (Recommended).
 - Go to Edit > Preferences... > Add-ons. Press the top-right Arrow button then click ```Install from Disk...```.
 - Enjoy.
 
@@ -19,3 +19,5 @@
 - Fill out all the fields.
 - Select the craft you want to export from the list.
 - Click export and load your game.
+
+#### Warning, this tool is still experimental, expect issues.
