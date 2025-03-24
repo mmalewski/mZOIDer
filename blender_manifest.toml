@@ -7,6 +7,7 @@ maintainer = "MrVicho13 <vicho0202@gmail.com>"
 type = "add-on"
 tags = ["Render", "Import-Export"]
 blender_version_min = "4.2.0"
+website = "https://github.com/Hancapo/Inzoider"
 
 
 license = ["SPDX:MIT",]
