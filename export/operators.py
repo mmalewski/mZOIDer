@@ -1,6 +1,8 @@
 import bpy
 from .funcs import get_obj_extents, create_printed_file, generate_md5_from_str, current_time_str, convert_image_to_jpg, create_folder, export_obj_as_glb
 from .meta import Meta
+from ..icons_load import get_icon
+from .constants import CRAFT_TYPES
 
 class SelectImage_OT_Operator(bpy.types.Operator):
     bl_idname = "inzoider.select_image_for_craft"
@@ -50,12 +52,10 @@ class AddCraftItem_OT_Operator(bpy.types.Operator):
     bl_label = "Add Craft Item"
     
     craft_title: bpy.props.StringProperty(name="Title", default="")
-    craft_description: bpy.props.StringProperty(name="Description", default="", subtype='NONE', options={'TEXTEDIT_UPDATE'})
+    craft_description: bpy.props.StringProperty(name="Description", default="", subtype='NONE')
     craft_use_obj_name_as_title: bpy.props.BoolProperty(name="Use Object Name as Title", default=False, description="Use the name of the selected object as the title instead of a custom one")
     craft_author: bpy.props.StringProperty(name="Author", default="")
-    craft_type: bpy.props.EnumProperty(name="Type", items=[
-        ('Build', "Build", "Build", "MOD_BUILD", 0),
-        ('Character', "Character", "Character", "ARMATURE_DATA", 1),])
+    craft_type: bpy.props.EnumProperty(name="Type", items=CRAFT_TYPES)
     
     @classmethod
     def poll(cls, context):
@@ -92,17 +92,17 @@ class AddCraftItem_OT_Operator(bpy.types.Operator):
         
         layout.prop(self, "craft_use_obj_name_as_title")
         if self.craft_use_obj_name_as_title:
-            layout.label(text=f"Title: {context.active_object.name}")
+            layout.label(text=f"Title: {context.active_object.name}", icon_value=get_icon("format_title"))
         else:
-            layout.prop(self, "craft_title")
+            layout.prop(self, "craft_title", icon_value=get_icon("format_title"))
             
-        layout.prop(self, "craft_description")
-        layout.prop(self, "craft_author")
-        layout.prop(self, "craft_type")
+        layout.prop(self, "craft_description", icon_value=get_icon("text_long"), expand=True)
+        layout.prop(self, "craft_author", icon_value=get_icon("account_tie"))
+        layout.prop(self, "craft_type", expand=True)
         box = layout.box()
-        box.label(text="Thumbnail Image:")
+        box.label(text="Thumbnail", icon_value=get_icon("image_frame"))
         
-        box.operator(SelectImage_OT_Operator.bl_idname, text="Select Image", icon='FILE_IMAGE')
+        box.operator(SelectImage_OT_Operator.bl_idname, text="Select")
         
         if context.window_manager.current_craft_texture_name:
             tex_name = context.window_manager.current_craft_texture_name
@@ -120,6 +120,9 @@ class RemoveCraftItem_OT_Operator(bpy.types.Operator):
         scene.obj_craft_list.remove(scene.obj_craft_index)
         scene.obj_craft_index = min(max(0, scene.obj_craft_index - 1), len(scene.obj_craft_list) - 1)
         return {'FINISHED'}
+        
+    def invoke(self, context, event):
+        return context.window_manager.invoke_confirm(self, event, title="Item Removal", icon='QUESTION', message="Are you sure you want to remove this item?")
             
 class FakeOperator_OT_Operator(bpy.types.Operator):
     bl_idname = "fake.operator"

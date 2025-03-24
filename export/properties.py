@@ -1,16 +1,15 @@
 import bpy
 from .funcs import update_path
+from .constants import CRAFT_TYPES
 
 class CraftItem(bpy.types.PropertyGroup):
-    type: bpy.props.EnumProperty(name="Type", items=[
-        ('Build', "Build", "Build"),
-        ('Character', "Character", "Character"),
-    ])
+    type: bpy.props.EnumProperty(name="Type", items=CRAFT_TYPES)
     mesh: bpy.props.PointerProperty(name="Mesh", type=bpy.types.Object)
     thumbnail: bpy.props.PointerProperty(name="Thumbnail", type=bpy.types.Image)
     title: bpy.props.StringProperty(name="Title", default="")
     description: bpy.props.StringProperty(name="Description", default="")
     author: bpy.props.StringProperty(name="Author", default="")
+    enable_editing: bpy.props.BoolProperty(name="Enable Editing", default=False)
     
 def register():
     bpy.types.Scene.obj_craft_list = bpy.props.CollectionProperty(type=CraftItem)
