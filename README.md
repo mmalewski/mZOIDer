@@ -2,9 +2,12 @@
 
 ### Quickly export custom 3D models from Blender as 3D Prints, usable in inZOI.
 
+## Get the latest release from [here](https://github.com/Hancapo/Inzoider/releases/latest)
+
 ### Requirements:
 - inZOI Creative Studio (Not tested on Early Access).
 - Blender 4.2 or higher.
+
 
 ### Installation:
 - Click the green ```Code``` button then click ```Download ZIP``` Or get latest release if available from ```Tags``` (Recommended).
