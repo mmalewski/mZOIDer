@@ -122,6 +122,10 @@ class RemoveCraftItem_OT_Operator(bpy.types.Operator):
     bl_idname = "inzoider.remove_craft_item"
     bl_label = "Remove Craft Item"
     
+    @classmethod
+    def poll(cls, context):
+        return len(context.scene.obj_craft_list) > 0
+    
     def execute(self, context):
         scene = context.scene
         scene.obj_craft_list.remove(scene.obj_craft_index)
