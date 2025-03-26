@@ -78,6 +78,8 @@ def change_visual_rotation_to_obj(obj: Object, apply: bool) -> None:
     obj.select_set(False)
 
 def change_selection(self, context):
+    if len(context.scene.obj_craft_list) == 0:
+        return
     selected_item = context.scene.obj_craft_list[context.scene.obj_craft_index]
     if selected_item:
         bpy.ops.object.select_all(action='DESELECT')
