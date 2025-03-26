@@ -17,7 +17,7 @@ class CRAFT_UL_list(bpy.types.UIList):
 
 
 class InzoiderCraftExport_PT_Panel(bpy.types.Panel):
-    bl_label = "Craft Export"
+    bl_label = "3D Printer"
     bl_idname = "InzoiderCraftExport_PT_Panel"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -25,7 +25,7 @@ class InzoiderCraftExport_PT_Panel(bpy.types.Panel):
     bl_options = {'DEFAULT_CLOSED'}
         
     def draw_header(self, context):
-        self.layout.label(text="", icon='FCURVE_SNAPSHOT')
+        self.layout.label(text="", icon_value=get_icon("printer_3d"))
     
     def draw(self, context):
         scene = context.scene
@@ -35,45 +35,28 @@ class InzoiderCraftExport_PT_Panel(bpy.types.Panel):
         col.operator(AddCraftItem_OT_Operator.bl_idname, text="", icon='ADD')
         col.operator(RemoveCraftItem_OT_Operator.bl_idname, text="", icon='REMOVE')
         col.separator()
-        col.operator(ExportCraft_OT_Operator.bl_idname, text="", icon='EXPORT')
+        col.operator(ExportCraft_OT_Operator.bl_idname, text="", icon_value=get_icon("export"))
         col.separator()
         row = row.row()
         col = row.column(align=False)
-        col.scale_x = 1.2
         col.template_list(CRAFT_UL_list.bl_idname, "", scene, "obj_craft_list", scene, "obj_craft_index")
-        col.prop(scene, "inzoi_3d_crafts_path", text="", icon_value=get_icon("printer_3d"), expand=True)
-            
-class InzoiderSelectedCraft_PT_Panel(bpy.types.Panel):
-    bl_label = ""
-    bl_idname = "InzoiderSelectedCraft_PT_Panel"
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_category = 'Inzoider'
-    bl_options = {"DEFAULT_CLOSED"}
-    bl_parent_id = "InzoiderCraftExport_PT_Panel"
-    
-    enable_editing: bpy.props.BoolProperty(name="Enable Editing", default=False)
-        
-    def draw_header(self, context):
-        layout = self.layout
-        scene = context.scene
-        selected_item = scene.obj_craft_list[scene.obj_craft_index] if scene.obj_craft_list else None
+        col.prop(scene, "inzoider_export_all", text="Export All Crafts")
+        col.prop(scene, "inzoider_3d_crafts_path", text="", icon_value=get_icon("printer_3d"), expand=True)
         row = layout.row()
-        icon_state = 'CHECKBOX_HLT' if selected_item.enable_editing else 'CHECKBOX_DEHLT'
-        row.separator()
-        row.label(text="Details", icon_value=get_icon("printer_3d"))
-        row.prop(selected_item, "enable_editing", text="Edit", icon=icon_state)
-    
-    def draw(self, context):
-        scene = context.scene
-        layout = self.layout
         selected_item = scene.obj_craft_list[scene.obj_craft_index] if scene.obj_craft_list else None
-        row = layout.row()
-        col = row.column()
-        col.prop(selected_item, "title", icon_value=get_icon("format_title"))
-        col.prop(selected_item, "description", icon_value=get_icon("text_long"))
-        col.prop(selected_item, "author", icon_value=get_icon("account_tie"))
-        type_icon_state = "wall" if selected_item.type == 'Build' else "hanger"
-        col.prop(selected_item, "type", icon_value=get_icon(type_icon_state))
-        col.enabled = selected_item.enable_editing
-            
+        if selected_item:
+            header, panel = layout.panel("_selectedcraft", default_closed=True)
+            icon_state = 'CHECKBOX_HLT' if selected_item.enable_editing else 'CHECKBOX_DEHLT'
+            header.alignment = 'LEFT'
+            header.label(text="Selected Craft", icon_value=get_icon("sofa_outline"))
+            header.prop(selected_item, "enable_editing", text="Edit Mode", icon=icon_state, expand=False)
+            if panel:
+                col_panel = panel.column(align=False)
+                col_panel.enabled = selected_item.enable_editing
+                col_panel.prop(selected_item, "title", icon_value=get_icon("format_title"))
+                col_panel.prop(selected_item, "description", icon_value=get_icon("text_long"))
+                col_panel.prop(selected_item, "author", icon_value=get_icon("account_tie"))
+                type_icon = "wall" if selected_item.type == 'Build' else "hanger"
+                col_panel.prop(selected_item, "type", icon_value=get_icon(type_icon))
+                col_panel.separator()
+                col_panel.label(text="Thumbnail and linked object cannot be edited.", icon='ERROR')
