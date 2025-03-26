@@ -3,7 +3,6 @@ from .funcs import get_obj_extents, create_printed_file, generate_md5_from_str, 
 from .meta import Meta
 from ..icons_load import get_icon
 from .constants import CRAFT_TYPES
-from math import radians
 
 class SelectImage_OT_Operator(bpy.types.Operator):
     """Select an image to use as the thumbnail for the craft item"""
