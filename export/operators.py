@@ -73,6 +73,19 @@ class AddCraftItem_OT_Operator(bpy.types.Operator):
         return context.window_manager.invoke_props_dialog(self, title="Craft Properties", width=400)
             
     def execute(self, context):
+        
+        if self.craft_title == "":
+            self.report({'ERROR'}, "Please enter a title for the craft item")
+            return {'CANCELLED'}
+        
+        if self.craft_description == "":
+            self.report({'ERROR'}, "Please enter a description for the craft item")
+            return {'CANCELLED'}
+        
+        if self.craft_author == "":
+            self.report({'ERROR'}, "Please enter an author for the craft item")
+            return {'CANCELLED'}
+        
         scene = context.scene
         item = scene.obj_craft_list.add()
         
