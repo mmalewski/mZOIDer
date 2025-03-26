@@ -7,6 +7,7 @@
 - Blender 4.2 or higher.
 
 ### Installation:
+- Click the green ```Code``` button then click ```Download ZIP``` Or get latest release if available from ```Tags``` (Recommended).
 - Go to Edit > Preferences... > Add-ons. Press the top-right Arrow button then click ```Install from Disk...```.
 - Enjoy.
 
