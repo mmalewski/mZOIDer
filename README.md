@@ -2,6 +2,9 @@
 
 ### Quickly export custom 3D models from Blender as 3D Prints, usable in inZOI.
 
+![image](https://github.com/user-attachments/assets/4aff8d15-efdb-42d5-9d75-e1af0dd76b20)
+
+
 ## Get the latest release from [here](https://github.com/Hancapo/Inzoider/releases/latest)
 
 ### Requirements:
@@ -15,7 +18,7 @@
 - Enjoy.
 
 ### Basic Usage:
-- Set your path to ```C:\Users\%USERNAME%\Documents\inZOI\AIGenerated\My3DPrinter```
+- Set your inZOI 3D Crafts path to ```C:\Users\%USERNAME%\Documents\inZOI\AIGenerated\My3DPrinter```
 - Select your object in your scene (Make sure is texturized and has uniform scale ```(1,1,1)``` and rotation```(0,0,0)```. You can apply both if you need it).
 - Open the side panel by pressing N.
 - Go to Inzoider.
