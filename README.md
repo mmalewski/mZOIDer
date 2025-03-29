@@ -5,7 +5,7 @@
 ## Get the latest release from [here](https://github.com/Hancapo/Inzoider/releases/latest)
 
 ### Requirements:
-- inZOI Creative Studio (Not tested on Early Access).
+- inZOI.
 - Blender 4.2 or higher.
 
 
@@ -15,6 +15,7 @@
 - Enjoy.
 
 ### Basic Usage:
+- Set your path to ```C:\Users\%USERNAME%\Documents\inZOI\AIGenerated\My3DPrinter```
 - Select your object in your scene (Make sure is texturized and has uniform scale ```(1,1,1)``` and rotation```(0,0,0)```. You can apply both if you need it).
 - Open the side panel by pressing N.
 - Go to Inzoider.
