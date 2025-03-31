@@ -28,7 +28,7 @@ class InzoiderExtensionProperties(bpy.types.AddonPreferences):
     
     is_printed_file_loaded : bpy.props.BoolProperty(
         name="Is Printed File Loaded",
-        description="True if a printed.dat file has been loaded",
+        description="Whether the printed.dat file is loaded or not",
         default=False,
     )
 
