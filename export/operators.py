@@ -1,8 +1,7 @@
 import bpy
-from .funcs import get_obj_extents, create_printed_file, generate_md5_from_str, current_time_str, convert_image_to_jpg, create_folder, export_obj_as_glb, change_visual_rotation_to_obj
-from .meta import Meta
 from ..icons_load import get_icon
 from .constants import CRAFT_TYPES
+from .funcs import process_item
 
 class SelectImage_OT_Operator(bpy.types.Operator):
     """Select an image to use as the thumbnail for the craft item"""
@@ -56,7 +55,6 @@ class AddCraftItem_OT_Operator(bpy.types.Operator):
     craft_title: bpy.props.StringProperty(name="Title", default="")
     craft_description: bpy.props.StringProperty(name="Description", default="", subtype='NONE')
     craft_use_obj_name_as_title: bpy.props.BoolProperty(name="Use Object Name as Title", default=False, description="Use the name of the selected object as the title instead of a custom one")
-    craft_author: bpy.props.StringProperty(name="Author", default="")
     craft_type: bpy.props.EnumProperty(name="Type", items=CRAFT_TYPES, default='Build')
     
     @classmethod
@@ -68,7 +66,6 @@ class AddCraftItem_OT_Operator(bpy.types.Operator):
         context.window_manager.current_craft_texture_name = ""
         self.craft_title = ""
         self.craft_description = ""
-        self.craft_author = ""
         self.craft_type = 'Build'
         return context.window_manager.invoke_props_dialog(self, title="Craft Properties", width=400)
             
@@ -82,10 +79,6 @@ class AddCraftItem_OT_Operator(bpy.types.Operator):
             self.report({'ERROR'}, "Please enter a description for the craft item")
             return {'CANCELLED'}
         
-        if self.craft_author == "":
-            self.report({'ERROR'}, "Please enter an author for the craft item")
-            return {'CANCELLED'}
-        
         scene = context.scene
         item = scene.obj_craft_list.add()
         
@@ -95,7 +88,6 @@ class AddCraftItem_OT_Operator(bpy.types.Operator):
             item.title = self.craft_title
             
         item.description = self.craft_description
-        item.author = self.craft_author
         item.mesh = context.selected_objects[0]
         item.type = self.craft_type
         
@@ -107,6 +99,8 @@ class AddCraftItem_OT_Operator(bpy.types.Operator):
         return {'FINISHED'}
     
     def draw(self, context):
+        from ..preferences import get_addon_prefs
+        prefs = get_addon_prefs()
         layout = self.layout
         
         layout.prop(self, "craft_use_obj_name_as_title")
@@ -116,7 +110,7 @@ class AddCraftItem_OT_Operator(bpy.types.Operator):
             layout.prop(self, "craft_title", icon_value=get_icon("format_title"))
             
         layout.prop(self, "craft_description", icon_value=get_icon("text_long"), expand=True)
-        layout.prop(self, "craft_author", icon_value=get_icon("account_tie"))
+        layout.label(text=f"Author: {prefs.detected_author}", icon_value=get_icon("account_tie"))
         layout.prop(self, "craft_type", expand=True)
         box = layout.box()
         box.label(text="Thumbnail", icon_value=get_icon("image_frame"))
@@ -173,34 +167,22 @@ class ExportCraft_OT_Operator(bpy.types.Operator):
         selected_index = scene.obj_craft_index
         items = scene.obj_craft_list if scene.inzoider_export_all else [scene.obj_craft_list[selected_index]]
         
-        if not scene.inzoider_3d_crafts_path:
-            self.report({'ERROR'}, "Please set the Inzoi's ImageTo3D path.")
-            return {'CANCELLED'}
-        
         if items:
             for item in items:
-                hash_name = generate_md5_from_str(f"{item.title}{current_time_str()}")
-                new_folder = create_folder(scene.inzoider_3d_crafts_path + f"/{hash_name}")
-                if item.type == 'Character':
-                    #change_visual_rotation_to_obj(item.mesh, True)
-                    print("This is a character")
-                    change_visual_rotation_to_obj(item.mesh, True)
-                    export_obj_as_glb(item.mesh, new_folder, hash_name.upper())
-                    change_visual_rotation_to_obj(item.mesh, False)
-                else:
-                    export_obj_as_glb(item.mesh, new_folder, hash_name.upper())
-                if item.thumbnail:
-                    convert_image_to_jpg(new_folder, item.thumbnail)
-                
-                meta = Meta(
-                    [0, 0, 0],
-                    [0, 0, 0] if item.type == 'Character' else [0, -90, 0],
-                    get_obj_extents(item.mesh),
-                    item.title,
-                    item.description,
-                )
-                meta.export_to_file(f"{new_folder}/meta.json")
-                create_printed_file(item.author, new_folder)
-                self.report({'INFO'}, f"Craft '{item.title}' exported successfully!")
+                process_item(self, scene, item)
+        
+        return {'FINISHED'}
+
+class UnloadPrintedFile_OT_Operator(bpy.types.Operator):
+    """Unloads the printed.dat file"""
+    bl_idname = "inzoider.deselect_printed_file"
+    bl_label = "Unload printed.dat"
+    
+    def execute(self, context):
+        from ..preferences import get_addon_prefs
+        prefs = get_addon_prefs()
+        prefs.example_printed_file_path = ""
+        prefs.is_printed_file_loaded = False
+        prefs.detected_author = ""
         
         return {'FINISHED'}
