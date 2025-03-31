@@ -1,5 +1,5 @@
 import bpy
-from .operators import FakeOperator_OT_Operator, AddCraftItem_OT_Operator, ExportCraft_OT_Operator, RemoveCraftItem_OT_Operator
+from .operators import AddCraftItem_OT_Operator, ExportCraft_OT_Operator, RemoveCraftItem_OT_Operator
 from ..icons_load import get_icon
 
 class CRAFT_UL_list(bpy.types.UIList):
