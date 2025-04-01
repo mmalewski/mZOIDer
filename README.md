@@ -13,8 +13,7 @@
 
 ## Installation
 1. Download the extension:
-   - Either click the green `Code` button and select `Download ZIP`
-   - Or get the latest release from the `Tags` section (Recommended)
+   - Get the latest release from the `Tags` section (Recommended)
 2. Open Blender and navigate to `Edit > Preferences... > Add-ons`
 3. Click the top-right arrow button and select `Install from Disk...`
 4. Locate and select the downloaded ZIP file
