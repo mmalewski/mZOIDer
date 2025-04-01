@@ -1,30 +1,47 @@
-# Inzoider extension for inZOI.
+# Inzoider Extension for inZOI
 
-### Quickly export custom 3D models from Blender as 3D Prints, usable in inZOI.
+### Transform your Blender creations into custom 3D prints for inZOI
 
-![image](https://github.com/user-attachments/assets/4aff8d15-efdb-42d5-9d75-e1af0dd76b20)
+![Inzoider Extension Preview](https://github.com/user-attachments/assets/13ec951a-6687-43ca-b90a-712f35bfd40d)
 
+## [⬇️ Download Latest Release](https://github.com/Hancapo/Inzoider/releases/latest)
 
-## Get the latest release from [here](https://github.com/Hancapo/Inzoider/releases/latest)
+## Requirements
+- inZOI game
+- Blender 4.2+
 
-### Requirements:
-- inZOI.
-- Blender 4.2 or higher.
+## Installation
+1. Download the extension:
+   - Either click the green `Code` button and select `Download ZIP`
+   - Or get the latest release from the `Tags` section (Recommended)
+2. Open Blender and navigate to `Edit > Preferences... > Add-ons`
+3. Click the top-right arrow button and select `Install from Disk...`
+4. Locate and select the downloaded ZIP file
+5. Enable the add-on by checking its box in the list
 
+## How to Use
 
-### Installation:
-- Click the green ```Code``` button then click ```Download ZIP``` Or get latest release if available from ```Tags``` (Recommended).
-- Go to Edit > Preferences... > Add-ons. Press the top-right Arrow button then click ```Install from Disk...```.
-- Enjoy.
+### Setup
+1. In the add-on preferences, set the 3D Printer path to:
+   ```
+   C:\Users\%USERNAME%\Documents\inZOI\AIGenerated\My3DPrinter
+   ```
+2. Generate at least one 3D print from inside inZOI
+3. The add-on will use these files as templates for your custom creations
+4. Select a ```printed.dat``` file from the previous path and load it.
 
-### Basic Usage:
-- Set your inZOI 3D Crafts path to ```C:\Users\%USERNAME%\Documents\inZOI\AIGenerated\My3DPrinter```
-- Select your object in your scene (Make sure is texturized and has uniform scale ```(1,1,1)``` and rotation```(0,0,0)```. You can apply both if you need it).
-- Open the side panel by pressing N.
-- Go to Inzoider.
-- Create a new Craft by pressing the ```+``` button.
-- Fill out all the fields.
-- Select the craft you want to export from the list.
-- Click export and load your game.
+Exporting a Model
+1. Prepare your 3D model in Blender:
+   - Model or Download your model.
+   - Apply textures to your object.
+   - Ensure uniform scale `(1,1,1)` and rotation `(0,0,0)` (apply both if needed)
+3. Select your object in the scene
+4. Open the side panel with the `N` key
+5. Navigate to the "Inzoider" tab
+6. Create a new craft by clicking the `+` button
+7. Fill out all required fields
+8. Select your craft from the list
+9. Click "Export"
+10. Launch inZOI to see your creation in-game
 
-#### Warning, this tool is still experimental, expect issues.
+> ⚠️ **Note:** This tool is still experimental. Please report any issues you encounter.
