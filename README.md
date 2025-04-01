@@ -9,6 +9,7 @@
 ## Requirements
 - inZOI game
 - Blender 4.2+
+- 3D modelling and general Blender knowledge.
 
 ## Installation
 1. Download the extension:
@@ -26,7 +27,7 @@
    ```
    C:\Users\%USERNAME%\Documents\inZOI\AIGenerated\My3DPrinter
    ```
-   > ℹ️ **Information:** %USERNAME% refers to your own Windows' username.
+   > ℹ️ **Information:** `%USERNAME%` refers to your own Windows' username.
 2. Generate at least one 3D print from inside inZOI
 3. The add-on will use these files as templates for your custom creations
 4. Select a ```printed.dat``` file from the previous path and load it.
