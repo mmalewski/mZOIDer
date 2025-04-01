@@ -51,6 +51,7 @@ def load_icons():
         ["wall", "wall.png"],
         ["hanger", "hanger.png"],
         ["format_list_bulleted_type", "format_list_bulleted_type.png"],
+        ["file_account_outline", "file_account_outline.png"],
     ]
     
     for name, filename in icons:
