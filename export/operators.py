@@ -163,9 +163,15 @@ class ExportCraft_OT_Operator(bpy.types.Operator):
             return len(scene.obj_craft_list) > 0 and scene.obj_craft_list[0].mesh is not None
     
     def execute(self, context):
+        from ..preferences import get_addon_prefs
+        prefs = get_addon_prefs()
+        if not prefs.my3dprinter_path:
+            self.report({'ERROR'}, "Please set the 3D printer path in the preferences")
+            return {'CANCELLED'}
         scene = context.scene
         selected_index = scene.obj_craft_index
         items = scene.obj_craft_list if scene.inzoider_export_all else [scene.obj_craft_list[selected_index]]
+        
         
         if items:
             for item in items:
