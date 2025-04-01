@@ -30,11 +30,12 @@
 3. The add-on will use these files as templates for your custom creations
 4. Select a ```printed.dat``` file from the previous path and load it.
 
-Exporting a Model
+### Exporting a Model
 1. Prepare your 3D model in Blender:
    - Model or Download your model.
    - Apply textures to your object.
    - Ensure uniform scale `(1,1,1)` and rotation `(0,0,0)` (apply both if needed)
+   - Set an proper pivot for your model. For example, if you are making a sofa, the pivot should be in the lower-middlemost part of the model.
 3. Select your object in the scene
 4. Open the side panel with the `N` key
 5. Navigate to the "Inzoider" tab
