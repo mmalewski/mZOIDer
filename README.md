@@ -28,7 +28,7 @@
    C:\Users\%USERNAME%\Documents\inZOI\AIGenerated\My3DPrinter
    ```
    > ℹ️ **Information:** `%USERNAME%` refers to your own Windows' username.
-2. Generate at least one 3D print from inside inZOI
+2. Generate at least one 3D print from inZOI
 3. The add-on will use these files as templates for your custom creations
 4. Select a ```printed.dat``` file from the previous path and load it.
 
