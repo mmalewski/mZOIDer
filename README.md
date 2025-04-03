@@ -1,13 +1,13 @@
-# Inzoider Extension for inZOI
+# Inzoider Extension for mZOI
 
-### Transform your Blender creations into custom 3D prints for inZOI
+### Transform your Blender creations into custom 3D prints for mZOI
 
 ![Inzoider Extension Preview](https://github.com/user-attachments/assets/13ec951a-6687-43ca-b90a-712f35bfd40d)
 
-## [⬇️ Download Latest Release](https://github.com/Hancapo/Inzoider/releases/latest)
+## [⬇️ Download Latest Release](https://github.com/mmalewski/mzoider/releases/latest)
 
 ## Requirements
-- inZOI game
+- mZOI game
 - Blender 4.2+
 - 3D modelling and general Blender knowledge.
 
@@ -24,10 +24,10 @@
 ### Setup
 1. In the add-on preferences, set the 3D Printer path to:
    ```
-   C:\Users\%USERNAME%\Documents\inZOI\AIGenerated\My3DPrinter
+   C:\Users\%USERNAME%\Documents\mZOI\AIGenerated\My3DPrinter
    ```
    > ℹ️ **Information:** `%USERNAME%` refers to your own Windows' username.
-2. Generate at least one 3D print from inZOI
+2. Generate at least one 3D print from mZOI
 3. The add-on will use these files as templates for your custom creations
 4. Select a ```printed.dat``` file from the previous path and load it.
 
@@ -44,6 +44,6 @@
 7. Fill out all required fields
 8. Select your craft from the list
 9. Click "Export"
-10. Launch inZOI to see your creation in-game
+10. Launch mZOI to see your creation in-game
 
 > ⚠️ **Note:** This tool is still experimental. Please report any issues you encounter.
