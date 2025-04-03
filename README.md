@@ -1,4 +1,4 @@
-# Inzoider Extension for mZOI
+# mZoider Extension for mZOI
 
 ### Transform your Blender creations into custom 3D prints for mZOI
 
